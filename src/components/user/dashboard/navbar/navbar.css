@@ -1,0 +1,26 @@
+/* Navbar.css */
+  
+.main{
+    min-height:auto !important;
+}
+  /* Tablet View */
+  @media (max-width: 768px) {
+    .header-container{
+        /* background: red !important; */
+        padding: 0 10px;
+    }
+    .header-title {
+      font-size: 1.5rem;
+    }
+    .header-button {
+      font-size: 12px;
+    }
+  }
+  
+  /* Mobile View */
+  /* @media (max-width: 480px) {
+    .header-container{
+        background: green !important;
+    }
+  }
+   */

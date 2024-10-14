@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  mmf_web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: mmf_web
+    container_name: mmf_web_c1
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+#***********************************************************************************************************************************************
+
