@@ -4,13 +4,14 @@ import ResizableAntTable from "../../common/resizable-ant-table";
 import { useDispatch } from "react-redux";
 import { useDeleteTeamMutation } from "../../../features/feature_apis/teamApi";
 import { setUpdateData } from "../../../features/helperSlice";
+import { useNavigate } from "react-router-dom";
 
 
 
 const TeamList = ({  setIsModalOpen,showMessage, data }) => {
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
     const [deleteTeam] = useDeleteTeamMutation();
     const deleteHandler = (value) =>{
         const {id:deleteId} = value;
@@ -32,6 +33,13 @@ const TeamList = ({  setIsModalOpen,showMessage, data }) => {
         dispatch(setUpdateData(item));
     };
 
+    const teamDetailHandler = (e,item)=>{
+        navigate(`${item.name.replace(/\s/g, "")}`, {
+            state: {
+                data: item,
+            },
+        });
+    }
     const columns = [
       {
         title: 'Name',
@@ -76,16 +84,16 @@ const TeamList = ({  setIsModalOpen,showMessage, data }) => {
         cancelText='No'
         onConfirm={() => editHandler(record)}
       > */}
-      {/* <Button
+      <Button
               type='text'
-              onClick={(e) => handleDrawerOpen(e, record)}
+              onClick={(e) => teamDetailHandler(e, record)}
               icon={
                 <EyeOutlined
                   style={{ fontSize: '21px', color: 'blue' }}
                 />
     
               }
-            /> */}
+            />
             <Button
               type='text'
               onClick={(e) => handleDrawerOpen(e, record)}

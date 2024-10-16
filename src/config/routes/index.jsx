@@ -20,6 +20,7 @@ import Team from '../../components/admin/team'
 import Township from '../../components/admin/township'
 import TypePersons from '../../components/admin/type-person'
 import Profile from '../../components/admin/profile'
+import TeamDetail from '../../components/admin/team/team-detail'
 const Login = lazy(() => import('../../components/admin/authentication/login/index'))
 const AppLayout = lazy(() => import('../../components/admin/layouts'))
 const ErrorPage404 = lazy(() => import('../../components/admin/error-pages/404'))
@@ -39,10 +40,12 @@ const Router = () => {
 		{
 			path: '/admin/',
 			element: (
+				<PrivateRoutes>
 					<Suspense fallback={<LoadingFallback />}>
 						<ScrollToTop />
 						<AppLayout />
 					</Suspense>
+				</PrivateRoutes>
 			),
 			children: [
 				{
@@ -106,6 +109,14 @@ const Router = () => {
 					element: (
 						<Suspense fallback={<LoadingFallback />}>
 							<Team />
+						</Suspense>
+					),
+				},
+				{
+					path: 'team/:name',
+					element: (
+						<Suspense fallback={<LoadingFallback />}>
+							<TeamDetail />
 						</Suspense>
 					),
 				},

@@ -16,6 +16,7 @@ import { clearUpdateData } from "../../../features/helperSlice";
 import { useGetRolesQuery } from "../../../features/feature_apis/roleApi";
 import { useCreateAdminMutation, useUpdateAdminMutation } from "../../../features/feature_apis/adminApi";
 import { useCreteUserMutation, useUpdateUserMutation } from "../../../features/feature_apis/userApi";
+import FileUpload from "../../product-management/category-registration/file-upload";
 
 const initialState = {
     username: "",
@@ -25,12 +26,24 @@ const initialState = {
     address: "",
     password: "",
 }
+const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  };
 const EmployeeDrawer = ({ open, setOpen, showMessage }) => {
 
     const [state, setState] = useState(initialState);
     const [pswItem, setPswItem] = useState("");
     const [loginId, setLoginId] = useState('');
     const [phoneNo,setPhoneNo] = useState('');
+    const [errorStatus, setErrorStatus] = useState('');
+    const [msg, setMsg] = useState("");
+    const [checkImage, setCheckImage] = useState(false);
+    const [imageData, setImageData] = useState();
 
     const [form] = Form.useForm();
 
@@ -43,7 +56,8 @@ const EmployeeDrawer = ({ open, setOpen, showMessage }) => {
         try {
             if (update_data) {
                 const { id, ...rest } = state;
-                const res = { ...values, address: state.address };
+                const profile_image =  !checkImage ? null : imageData
+                const res = { ...values, address: state.address,photo:profile_image };
                 updateUser({ id, data: res })
                     .unwrap()
                     .then(async (result) => {
@@ -103,6 +117,16 @@ const EmployeeDrawer = ({ open, setOpen, showMessage }) => {
             setPhoneNo(numericValue);
         } 
     }
+
+    const handleFileChange = async (file) => {
+        if (file.length > 0) {
+          setCheckImage(true);
+          const base64Data = await getBase64(file[0].originFileObj);
+          setImageData(base64Data);
+        } else {
+          setCheckImage(false);
+        }
+      }
 
     useEffect(() => {
         if (update_data) {
@@ -236,14 +260,28 @@ const EmployeeDrawer = ({ open, setOpen, showMessage }) => {
                                 <Input disabled={update_data ? true : false} />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row>
-                    <Col span={24}>
-                    <Form.Item label="Address" name="address">
+                        {
+                            update_data && (
+                                <Col xs={24} sm={24} lg={24} xl={12}>
+                                <Form.Item label="Profile" name="profile_image">
+                                    <FileUpload
+                                    setErrorStatus={setErrorStatus}
+                                    onFileChange={handleFileChange}
+                                    buttonText={"click-to-upload"}
+                                    setMsg={setMsg}
+                                />
+                                </Form.Item>
+                                </Col>
+                            )
+                        }
+                        <Col xs={24} sm={24} lg={24} xl={12}>
+                        <Form.Item label="Address" name="address">
                                 <TextArea rows={4} />
                             </Form.Item>
-                    </Col>
+                        </Col>
+                       
                     </Row>
+
                     <Row style={{ marginTop: 20 }}>
                         <Col
                             xs={{ span: 24, offset: 0 }}

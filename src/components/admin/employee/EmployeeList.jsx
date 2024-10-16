@@ -100,6 +100,13 @@ const EmployeeList = ({ translate, setOpen, scrollAction, data, showMessage }) =
             responsive: ["md"],
         },
         {
+            title: `Address`,
+            dataIndex: "address",
+            key: "address",
+            width: 1,
+            responsive: ["md"],
+        },
+        {
             title: `Status`,
             dataIndex: "status",
             key: "status",

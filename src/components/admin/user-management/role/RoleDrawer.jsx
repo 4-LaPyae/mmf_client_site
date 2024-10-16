@@ -75,7 +75,7 @@ const RoleDrawer = ({ open, setOpen, data, showMessage }) => {
     useEffect(() => {
         
         if (update_data) {
-            // setState(update_data);
+            setState(update_data);
             form.setFieldsValue(update_data);
         } 
     }, [update_data,form]);

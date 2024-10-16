@@ -16,7 +16,7 @@ const Profile = () => {
 
 	const logoutHandler = () => {
 		dispatch(clearUser())
-		navigate('/login')
+		navigate('/admin/login')
 		// logout api function call here
 	}
 	const items = [
