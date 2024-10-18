@@ -2,17 +2,21 @@ import React from 'react'
 import './errstyle.css'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router'
-import { selectMenu, clearUser } from '../../../../features/userSlice'
+import { selectMenu, clearUser, selectRole } from '../../../../features/userSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 const ErrorPage404 = ({ errStatus = 404 }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const menus = useSelector(selectMenu)
+	const role = useSelector(selectRole);
 
 	const errorPageHandler = () => {
-		!menus && dispatch(clearUser())
-		navigate('/')
+		if(role == 'user'){
+			navigate('/dashboard')
+		}else{
+			navigate('/admin/dashboard')
+		}
 	}
 
 	return (

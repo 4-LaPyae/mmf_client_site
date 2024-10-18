@@ -52,5 +52,6 @@ export const { setUser, clearUser, clearExceptMenus,setUserDetail } = userSlice.
 export const selectUser = (state) => state.user.user // Selector to access the user data
 export const selectToken = (state) => state.user.token // Selector to access the token
 export const selectMenu = (state) => state.user.menus // Selector to access the menu routes
-
+export const selectRole = (state) => state.user.role // Selector to access the role
+export const selectIsAuthenticated = (state) => state.user.isAuthenticated // Selector to access authentication
 export default userSlice.reducer

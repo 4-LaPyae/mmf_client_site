@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import img from "../../../../../assets/react.svg";
+import img from "../../../../../assets/images/logo/mmf.png";
 import defaultTheme from "../../../../../themes/default-theme";
 
 const Logo = ({ collapsed }) => {
@@ -13,7 +13,7 @@ const Logo = ({ collapsed }) => {
         >
             <div className="logo">
                 <img alt="brand logo" src={img} />
-                {!collapsed && <h1>MMF</h1>}
+                {/* {!collapsed && <h1>MMF</h1>} */}
             </div>
         </div>
     );

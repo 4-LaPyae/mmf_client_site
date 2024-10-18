@@ -1,12 +1,19 @@
 import { useState } from "react";
-import { Upload, Button } from "antd";
+import { Upload, Button, Image } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
-
+const getBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 const FileUpload = ({ onFileChange, setErrorStatus, setMsg, buttonText }) => {
     // State to manage the list of uploaded files
     const [fileList, setFileList] = useState([]);
-
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
     // Function to handle file upload before processing
     const beforeUpload = (file) => {
         // List of accepted file formats
@@ -46,6 +53,13 @@ const FileUpload = ({ onFileChange, setErrorStatus, setMsg, buttonText }) => {
         // Pass the fileList to the parent component or form
         onFileChange(fileList);
     };
+    const handlePreview = async (file) => {
+        if (!file.url && !file.preview) {
+          file.preview = await getBase64(file.originFileObj);
+        }
+        setPreviewImage(file.url || file.preview);
+        setPreviewOpen(true);
+      };
 
     return (
         <div>
@@ -56,11 +70,25 @@ const FileUpload = ({ onFileChange, setErrorStatus, setMsg, buttonText }) => {
                 maxCount={1}
                 accept="image/png, image/jpg, image/jpeg, image/gif"
                 fileList={fileList}
+                onPreview={handlePreview}
                 onChange={handleChange}
             >
                 {/* Button trigger for file upload */}
                 <Button icon={<UploadOutlined />}>{buttonText}</Button>
             </Upload>
+            {previewImage && (
+        <Image
+          wrapperStyle={{
+            display: 'none',
+          }}
+          preview={{
+            visible: previewOpen,
+            onVisibleChange: (visible) => setPreviewOpen(visible),
+            afterOpenChange: (visible) => !visible && setPreviewImage(''),
+          }}
+          src={previewImage}
+        />
+      )}
         </div>
     );
 };

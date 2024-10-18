@@ -6,12 +6,11 @@ import { useDeleteTeamMutation } from "../../../features/feature_apis/teamApi";
 import { setUpdateData } from "../../../features/helperSlice";
 import { useNavigate } from "react-router-dom";
 
-
-
 const TeamList = ({  setIsModalOpen,showMessage, data }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
     const [deleteTeam] = useDeleteTeamMutation();
     const deleteHandler = (value) =>{
         const {id:deleteId} = value;
@@ -32,14 +31,13 @@ const TeamList = ({  setIsModalOpen,showMessage, data }) => {
         setIsModalOpen(true);
         dispatch(setUpdateData(item));
     };
-
     const teamDetailHandler = (e,item)=>{
-        navigate(`${item.name.replace(/\s/g, "")}`, {
-            state: {
-                data: item,
-            },
-        });
-    }
+      navigate(`${item.name.replace(/\s/g, "")}`, {
+          state: {
+              data: item,
+          },
+      });
+  }
     const columns = [
       {
         title: 'Name',

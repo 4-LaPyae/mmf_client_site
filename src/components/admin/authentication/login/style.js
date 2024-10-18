@@ -16,7 +16,9 @@ export const loginLayoutStyle = {
   },
   iconContainer: {
     display: "flex",
+    flexDirection:"column",
     justifyContent: "center",
+    textAlign:"center",
     marginBottom: "20px", // Adjust as needed
   },
   icon: {
@@ -24,7 +26,7 @@ export const loginLayoutStyle = {
     backgroundImage: "linear-gradient(45deg, #fed0c5, #8b47b5)",
     color: "#8b47b5",
     WebkitBackgroundClip: "text",
-    padding: "20px",
+    // padding: "20px",
     WebkitTextFillColor: "transparent",
   },
 };

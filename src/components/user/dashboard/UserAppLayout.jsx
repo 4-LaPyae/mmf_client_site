@@ -3,16 +3,15 @@ import { Breadcrumb, Layout, Menu, theme, Typography } from 'antd';
 import Navbar from './navbar/NavBar';
 import FooterBar from './footer/FooterBar';
 import UContent from './content/UContent';
-const { Header, Content, Footer } = Layout;
 
-const UserDashboard = () => {
+const UserAppLayout = () => {
  
   return (
-    <>
-    <Navbar />
-    <UContent/>
-    <FooterBar/>
-    </>
+    <Layout>
+      <Navbar />
+      <UContent/>
+      <FooterBar/>   
+    </Layout>
   );
 };
-export default UserDashboard;
+export default UserAppLayout;

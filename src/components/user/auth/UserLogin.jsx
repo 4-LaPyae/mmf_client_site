@@ -1,13 +1,35 @@
-import React from 'react';
-import { Form, Input, Button, Divider, Typography, Row, Col } from 'antd';
-import { GoogleOutlined, AppleOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Form, Input, Button, Divider, Typography, Row, Col, message } from 'antd';
 import './SignIn.css'; // Include any custom styling if necessary
+import { useLoginUserMutation } from '../../../features/feature_apis/userApi';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../features/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text, Link } = Typography;
 
 const UserLogin = () => {
+  const [postLogin,{isLoading}] = useLoginUserMutation();
+  const [messageApi, contextHolder] = message.useMessage();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
+    try {
+      postLogin(values)
+      .unwrap()
+      .then(async (res)=>{
+        const { error, message: msg,data } = res;
+           if (!error) {
+            dispatch(setUser(data));
+            navigate("/dashboard");
+        } else {
+            messageApi.error(msg);
+        }
+      })
+    } catch (error) {
+      messageApi.error("Something went wrong");
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -15,6 +37,8 @@ const UserLogin = () => {
   };
 
   return (
+    <>
+    {contextHolder}
     <div className="sign-in-container">
       <Row justify="center" align="middle" className="sign-in-row">
         {/* Left Side: Image and Logo */}
@@ -35,7 +59,7 @@ const UserLogin = () => {
               fontFamily: "Lobster",
               fontWeight: '500',
               fontStyle: 'italic',
-              margin:0
+              margin: 0
             }}>HELLO</h2>
             <h2 className='sign-in-text' level={1} style={{
               color: 'white',
@@ -49,9 +73,14 @@ const UserLogin = () => {
         </Col>
 
         {/* Right Side: Sign-In Form */}
-        <Col xs={24} lg={12} className="sign-in-form">
+        <Col xs={24} lg={12} className="sign-in-form" style={{padding:20}}>
           <div className="form-wrapper">
-            <Title level={2}>Sign In</Title>
+            <div style={{display:"flex",flexDirection:"column",alignItems:'center'}}>
+              <img alt="brand logo" src={"/src/assets/images/logo/mmf.png"} width={150}>
+              </img>
+              <Title level={2} style={{marginTop:0}}>Sign In</Title>
+            </div>
+
             {/* Sign-In Form */}
             <Form
               name="sign_in"
@@ -62,11 +91,12 @@ const UserLogin = () => {
             >
               {/* Email */}
               <Form.Item
-                name="email"
-                label="Email"
-                rules={[{ required: true, message: 'Email address is required' }]}
+                name="login_id"
+                label="Login ID"
+                rules={[{ required: true, message: 'Login ID is required' }]}
               >
-                <Input placeholder="Email" />
+                <Input placeholder="Login ID" maxLength={6}
+                />
               </Form.Item>
 
               {/* Password */}
@@ -80,7 +110,7 @@ const UserLogin = () => {
 
               {/* Submit Button */}
               <Form.Item>
-                <Button type="primary" htmlType="submit" block>
+                <Button type="primary" htmlType="submit" disabled={isLoading}>
                   Sign In
                 </Button>
               </Form.Item>
@@ -89,6 +119,7 @@ const UserLogin = () => {
         </Col>
       </Row>
     </div>
+    </>
   );
 };
 

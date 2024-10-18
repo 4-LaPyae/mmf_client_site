@@ -7,7 +7,6 @@ import LoadingFallback from '../../components/common/loading-fallback'
 import PrivateRoutes from './privateRoutes'
 import ScrollToTop from '../../components/common/scroll-to-top'
 import UserLogin from '../../components/user/auth/UserLogin'
-import UserDashboard from '../../components/user/dashboard/UserDashboard'
 import PrivateUserRoutes from './PrivateUserRoutes'
 import Dashboard from '../../components/admin/dashboard'
 import Roles from '../../components/admin/user-management/role'
@@ -21,8 +20,14 @@ import Township from '../../components/admin/township'
 import TypePersons from '../../components/admin/type-person'
 import Profile from '../../components/admin/profile'
 import TeamDetail from '../../components/admin/team/team-detail'
+import RoleMiddleware from '../middleware/RoleMiddleware'
+import Map from '../../components/user/dashboard/content/map/Map'
+import Activity from '../../components/user/dashboard/content/activity/Activity'
+import Report from '../../components/user/dashboard/content/report/Report'
 const Login = lazy(() => import('../../components/admin/authentication/login/index'))
 const AppLayout = lazy(() => import('../../components/admin/layouts'))
+const UserAppLayout = lazy(() => import('../../components/user/dashboard/UserAppLayout'))
+
 const ErrorPage404 = lazy(() => import('../../components/admin/error-pages/404'))
 
 const Router = () => {
@@ -40,12 +45,14 @@ const Router = () => {
 		{
 			path: '/admin/',
 			element: (
+				<RoleMiddleware allowedRoles={['systemadmin','superadmin','supervisor']}> {/* Middleware for user */}
 				<PrivateRoutes>
 					<Suspense fallback={<LoadingFallback />}>
 						<ScrollToTop />
 						<AppLayout />
 					</Suspense>
 				</PrivateRoutes>
+				</RoleMiddleware>
 			),
 			children: [
 				{
@@ -158,10 +165,46 @@ const Router = () => {
 			),
 		},
 		{
-			path: '/dashboard',
+			path: '/',
+			element: (
+				<RoleMiddleware allowedRoles={['user']}> {/* Middleware for user */}
+					<Suspense fallback={<LoadingFallback />}>
+						<UserAppLayout />
+					</Suspense>
+				</RoleMiddleware>
+			),
+			children:[
+				{
+					path: 'dashboard',
+					element: (
+						<Suspense fallback={<LoadingFallback />}>
+							<Map />
+						</Suspense>
+					),
+				},
+				{
+					path: 'activity',
+					element: (
+						<Suspense fallback={<LoadingFallback />}>
+							<Activity />
+						</Suspense>
+					),
+				},
+				{
+					path: 'report',
+					element: (
+						<Suspense fallback={<LoadingFallback />}>
+							<Report />
+						</Suspense>
+					),
+				},
+			]
+		},
+		{
+			path: '/404', // Add a route for the 404 error page
 			element: (
 				<Suspense fallback={<LoadingFallback />}>
-					<UserDashboard />
+					<ErrorPage404 />
 				</Suspense>
 			),
 		},

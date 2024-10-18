@@ -34,8 +34,8 @@
 }
 
 .brand .logo img {
-	width: 36px;
-	filter: invert(22%) sepia(100%) saturate(6984%) hue-rotate(278deg) brightness(100%) contrast(91%);
+	width: 80px;
+	/* filter: invert(22%) sepia(100%) saturate(6984%) hue-rotate(278deg) brightness(100%) contrast(91%); */
 }
 
 .brand .logo h1 {

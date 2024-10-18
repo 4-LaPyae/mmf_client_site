@@ -1,5 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message, Typography } from "antd";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { loginLayoutStyle } from "./style";
@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../../features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { usePostLoginMutation } from "../../../../features/feature_apis/loginApi";
+const { Title} = Typography;
 
 const Login = () => {
     const [postLogin, { isLoading }] = usePostLoginMutation();
@@ -57,10 +58,11 @@ const Login = () => {
                 onFinish={onFinish}
             >
                 <div style={loginLayoutStyle.iconContainer}>
-                    <FontAwesomeIcon
-                        icon={faLock}
-                        style={loginLayoutStyle.icon}
-                    />
+                <div>
+                    <img alt="brand logo" src={"/src/assets/images/logo/mmf.png"} width={150}>
+                </img>
+                </div>
+                <Title level={2} style={{margin:0}}>Admin Sign In</Title>
                 </div>
                 {/* <Space direction="vertical"> */}
                 <Form.Item
@@ -68,7 +70,7 @@ const Login = () => {
                     rules={[
                         {
                             required: true,
-                            message: "Please enter your Email or Phone!",
+                            message: "Please enter your Email",
                         },
                     ]}
                 >
@@ -76,7 +78,7 @@ const Login = () => {
                         prefix={
                             <UserOutlined className="site-form-item-icon" />
                         }
-                        placeholder="Email or Phone"
+                        placeholder="Email"
                     />
                 </Form.Item>
                 <Form.Item
@@ -97,7 +99,7 @@ const Login = () => {
                     />
                 </Form.Item>
                 {/* </Space> */}
-                <Form.Item>
+                {/* <Form.Item>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
                         <Checkbox>Remember me</Checkbox>
                     </Form.Item>
@@ -105,7 +107,7 @@ const Login = () => {
                     <a className="login-form-forgot" href="">
                         Forgot Password
                     </a>
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item>
                     <Button
                         block

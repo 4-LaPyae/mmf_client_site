@@ -1,6 +1,6 @@
 const defaultTheme = {
 	token: {
-		colorPrimary: '#764ABC',
+		colorPrimary: '#7ec624',
 		// colorBgContainer: 'yellow',
 		// colorText: 'blue', // All text color except button
 		// colorTextLightSolid: 'black', // Button text color

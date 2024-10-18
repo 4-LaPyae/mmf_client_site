@@ -10,6 +10,15 @@ export const userApi = createApi({
     baseQuery,
     tagTypes: ["Users"],
     endpoints: (builder) => ({
+        loginUser: builder.mutation({
+            query: (data) => {
+                return {
+                    url: '/user/login',
+                    method: "POST",
+                    body: data,
+                };
+            },
+        }),
         getUsers: builder.query({
             query: () => ({
             url: "/admin/formal/user",
@@ -71,4 +80,4 @@ export const userApi = createApi({
         }),
     }),
   });
-  export const {useGetUsersQuery,useCreteUserMutation,useUpdateUserMutation,useDeleteUserMutation,useInActiveUserMutation,useActiveUserMutation} = userApi;
+  export const {useLoginUserMutation,useGetUsersQuery,useCreteUserMutation,useUpdateUserMutation,useDeleteUserMutation,useInActiveUserMutation,useActiveUserMutation} = userApi;
