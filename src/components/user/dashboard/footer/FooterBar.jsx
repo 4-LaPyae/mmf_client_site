@@ -82,13 +82,13 @@ const FooterBar = () => {
   ];
 
   return (
-    <Footer style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: 0, background: '#e9ecef', margin: '0 auto', width: '100%', maxWidth: '1200px' }}>
+    <Footer style={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: 0,  margin: '0 auto', width: '100%' }}>
       <Menu
         mode="horizontal"
         items={items}  // Use the items prop
         selectedKeys={[selectedKey]}
         onClick={handleMenuClick}
-        style={{ display: 'flex', justifyContent: 'center', padding: '0.5rem 0', background: 'white', border: 'none' }}
+        style={{ display: 'flex', justifyContent: 'center', padding: '0.5rem 0', background: '#e5f1d8', border: 'none' }}
       />
     </Footer>
   );

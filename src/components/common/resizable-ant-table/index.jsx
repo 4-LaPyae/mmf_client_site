@@ -84,6 +84,7 @@ const ResizableAntTable = (props) => {
     return (
         <Table
             bordered
+            pagination={props.pagination}
             rowSelection={props.rowSelection}
             columns={resizableColumns}
             dataSource={props.data}
@@ -93,7 +94,7 @@ const ResizableAntTable = (props) => {
                 },
             }}
             size={props.size || "small"}
-            style={{ ...props.style }}
+            //style={{ ...props.style }}
             scroll={{ x: "max-content" }}
         />
     );
@@ -106,6 +107,7 @@ ResizableAntTable.propTypes = {
     data: PropTypes.array.isRequired,
     size: PropTypes.string,
     style: PropTypes.object,
+    pagination:PropTypes.object
 };
 
 // PropTypes for the ResizableTitle component

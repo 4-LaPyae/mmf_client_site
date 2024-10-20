@@ -43,7 +43,7 @@ const Navbar = () => {
             </img>
           </div>
           <div>
-            <Button className='header-button' style={{ background: "#7ec624", color: 'white', marginRight: '5px' }}>OPTION</Button>
+            {/* <Button className='header-button' style={{ background: "#7ec624", color: 'white', marginRight: '5px' }}>OPTION</Button> */}
             <Button 
             className='header-button' 
             style={{ background: "#7ec624", color: 'white', }} 

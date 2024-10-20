@@ -33,7 +33,6 @@ const UContent = () => {
         //<Layout>
         <Content
             style={{
-                padding: "15px",
                 background: "#e9ecef",
             }}
         >

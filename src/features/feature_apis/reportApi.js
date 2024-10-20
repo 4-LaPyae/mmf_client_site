@@ -9,6 +9,13 @@ export const reportApi = createApi({
     reducerPath: "reportApi",
     baseQuery,
     endpoints: (builder) => ({
+    postReportList: builder.mutation({
+        query: ({data,page,limit}) => ({
+        url: `/user/report/filter?page=${page}&limit=${limit}`,
+        method: "POST",
+        body: data,
+        }),
+      }),
     postReport: builder.mutation({
             query: (data) => ({
               url: "/user/report",
@@ -18,4 +25,4 @@ export const reportApi = createApi({
           }),
     }),
   });
-  export const {usePostReportMutation} = reportApi;
+  export const {usePostReportListMutation,usePostReportMutation} = reportApi;
