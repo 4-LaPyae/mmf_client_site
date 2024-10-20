@@ -74,7 +74,7 @@ const FileUpload = ({ onFileChange, setErrorStatus, setMsg, buttonText }) => {
                 onChange={handleChange}
             >
                 {/* Button trigger for file upload */}
-                <Button icon={<UploadOutlined />}>{buttonText}</Button>
+                <Button style={{width:'100%'}} icon={<UploadOutlined />}>{buttonText}</Button>
             </Upload>
             {previewImage && (
         <Image

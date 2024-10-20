@@ -23,6 +23,8 @@ import { townshipApi } from "./features/feature_apis/townshipApi"
 import { typepersonApi } from "./features/feature_apis/typepersonApi"
 import { teamApi } from "./features/feature_apis/teamApi"
 import { exitTeamMemberApi } from "./features/feature_apis/exitTeamMemberApi"
+import { pcodeUserApi } from "./features/feature_apis/pcodeUserApi"
+import { reportApi } from "./features/feature_apis/reportApi"
 // Load the persisted state from local storage
 const persistedState = loadState()
 
@@ -50,6 +52,9 @@ const store = configureStore({
 		[typepersonApi.reducerPath]:typepersonApi.reducer,
 		[teamApi.reducerPath]:teamApi.reducer,
 		[exitTeamMemberApi.reducerPath]: exitTeamMemberApi.reducer,
+		[pcodeUserApi.reducerPath]: pcodeUserApi.reducer,
+		[reportApi.reducerPath]: reportApi.reducer,
+
 
 },
 	preloadedState: persistedState, // Initialize the store with persisted state
@@ -68,9 +73,9 @@ const store = configureStore({
 			.concat(townshipApi.middleware)
 			.concat(typepersonApi.middleware)
 			.concat(teamApi.middleware)
-			.concat(exitTeamMemberApi.middleware),
-
-
+			.concat(exitTeamMemberApi.middleware)
+			.concat(pcodeUserApi.middleware)
+			.concat(reportApi.middleware),
 
 })
 
